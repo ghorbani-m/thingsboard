@@ -52,4 +52,5 @@ jobs:
       # Step 8: Push Docker image to GitHub Container Registry
       - name: Push Docker image
         run: |
+          docker tag thingsboard/tb-postgres:latest ghcr.io/${{ github.repository_owner }}/tb-postgres:latest
           docker push ghcr.io/${{ github.repository_owner }}/tb-postgres:latest
