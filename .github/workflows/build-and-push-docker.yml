@@ -3,10 +3,10 @@ name: Build, Create Docker Image, and Push to GitHub Container Registry
 on:
   push:
     branches:
-      - main  # Trigger on push to the `main` branch
+      - develop  # Trigger on push to the `main` branch
   pull_request:
     branches:
-      - main  # Trigger on pull requests to the `main` branch
+      - develop  # Trigger on pull requests to the `main` branch
   workflow_dispatch:  # Allow manual workflow runs
 
 jobs:
