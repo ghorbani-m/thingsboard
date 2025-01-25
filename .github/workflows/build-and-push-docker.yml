@@ -39,11 +39,7 @@ jobs:
       # Step 5: Build ThingsBoard
       - name: Build ThingsBoard
         run: |
-          ./mvnw clean install -DskipTests -Dlicense.skip=true || mvn clean install -DskipTests -Dlicense.skip=true
-      
-      # Step 5.5: Search for Dockerfile
-      - name: Search for Dockerfile
-        run: find . -name "Dockerfile"
+          ./mvnw clean install -DskipTests -Dlicense.skip=false || mvn clean install -DskipTests -Dlicense.skip=false
       
       # Step 6: Log in to GitHub Container Registry
       - name: Log in to GitHub Container Registry
@@ -52,13 +48,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT }}
-
-      # Step 7: Build Docker image
-      - name: Build Docker image
-        run: |
-          docker build \
-            --build-arg SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }} \
-            -t ghcr.io/${{ github.repository_owner }}/tb-postgres:latest ./msa/tb/docker-postgres/
 
       # Step 8: Push Docker image to GitHub Container Registry
       - name: Push Docker image
