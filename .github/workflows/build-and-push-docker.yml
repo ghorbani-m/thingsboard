@@ -3,10 +3,10 @@ name: Build, Create Docker Image, and Push to GitHub Container Registry
 on:
   push:
     branches:
-      - develop  # Trigger on push to the `main` branch
+      - main  # Trigger on push to the `main` branch
   pull_request:
     branches:
-      - develop  # Trigger on pull requests to the `main` branch
+      - main  # Trigger on pull requests to the `main` branch
   workflow_dispatch:  # Allow manual workflow runs
 
 jobs:
@@ -18,19 +18,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up JDK for ThingsBoard build
-      - name: Set up JDK 11
+      # Step 2: Install Java 11
+      - name: Install Java 11
         uses: actions/setup-java@v3
         with:
           java-version: 11
           distribution: temurin
 
-      # Step 3: Build ThingsBoard application
+      # Step 3: Install Maven
+      - name: Install Maven
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y maven
+          mvn -version  # Verify Maven installation
+
+      # Step 4: List files in the repository (for debugging)
+      - name: List files in the repository
+        run: ls -la
+
+      # Step 5: Build ThingsBoard
       - name: Build ThingsBoard
         run: |
-          ./mvnw clean install -DskipTests
+          ./mvnw clean install -DskipTests || mvn clean install -DskipTests
 
-      # Step 4: Log in to GitHub Container Registry
+      # Step 6: Log in to GitHub Container Registry
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
@@ -38,12 +49,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT }}
 
-      # Step 5: Build Docker image
+      # Step 7: Build Docker image
       - name: Build Docker image
         run: |
           docker build -t ghcr.io/${{ github.repository_owner }}/thingsboard:latest .
 
-      # Step 6: Push Docker image to GitHub Container Registry
+      # Step 8: Push Docker image to GitHub Container Registry
       - name: Push Docker image
         run: |
           docker push ghcr.io/${{ github.repository_owner }}/thingsboard:latest
