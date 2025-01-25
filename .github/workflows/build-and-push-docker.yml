@@ -56,7 +56,9 @@ jobs:
       # Step 7: Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/tb-postgres:latest ./msa/tb/docker-postgres/
+          docker build \
+            --build-arg SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }} \
+            -t ghcr.io/${{ github.repository_owner }}/tb-postgres:latest ./msa/tb/docker-postgres/
 
       # Step 8: Push Docker image to GitHub Container Registry
       - name: Push Docker image
