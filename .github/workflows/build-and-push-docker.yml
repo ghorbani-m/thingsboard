@@ -3,10 +3,10 @@ name: Build, Create Docker Image, and Push to GitHub Container Registry
 on:
   push:
     branches:
-      - develop  # Trigger on push to the `develop` branch
+      - develop  # Trigger on push to the `main` branch
   pull_request:
     branches:
-      - develop  # Trigger on pull requests to the `develop` branch
+      - develop  # Trigger on pull requests to the `main` branch
   workflow_dispatch:  # Allow manual workflow runs
 
 jobs:
@@ -40,12 +40,8 @@ jobs:
       - name: Build ThingsBoard
         run: |
           ./mvnw clean install -DskipTests -Dlicense.skip=true -Ddockerfile.skip=false || mvn clean install -DskipTests -Dlicense.skip=true -Ddockerfile.skip=false
-
-      # Step 6: Set up Docker Buildx
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      # Step 7: Log in to GitHub Container Registry
+      
+      # Step 6: Log in to GitHub Container Registry
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
@@ -53,10 +49,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT }}
 
-      # Step 8: Build and push Docker image for linux/arm64
-      - name: Build and push Docker image
+      # Step 8: Push Docker image to GitHub Container Registry
+      - name: Push Docker image
         run: |
-          docker buildx build \
-            --platform linux/arm64 \
-            -t ghcr.io/${{ github.repository_owner }}/tb-postgres:latest \
-            --push .
+          docker tag thingsboard/tb-postgres:latest ghcr.io/${{ github.repository_owner }}/tb-postgres:latest
+          docker push ghcr.io/${{ github.repository_owner }}/tb-postgres:latest
