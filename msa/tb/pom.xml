@@ -295,7 +295,7 @@
                                         <argument>build</argument>
                                         <argument>-t</argument>
                                         <argument>${docker.repo}/${tb-postgres.docker.name}:latest</argument>
-                                        <argument>--platform=linux/amd64,linux/arm64</argument>
+                                        <argument>--platform=linux/amd64</argument>
                                         <argument>-o</argument>
                                         <argument>type=registry</argument>
                                         <argument>.</argument>
@@ -316,7 +316,7 @@
                                         <argument>build</argument>
                                         <argument>-t</argument>
                                         <argument>${docker.repo}/${tb-postgres.docker.name}:${project.version}</argument>
-                                        <argument>--platform=linux/amd64,linux/arm64</argument>
+                                        <argument>--platform=linux/amd64</argument>
                                         <argument>-o</argument>
                                         <argument>type=registry</argument>
                                         <argument>.</argument>
@@ -337,7 +337,7 @@
                                         <argument>build</argument>
                                         <argument>-t</argument>
                                         <argument>${docker.repo}/${tb-cassandra.docker.name}:latest</argument>
-                                        <argument>--platform=linux/amd64,linux/arm64</argument>
+                                        <argument>--platform=linux/amd64</argument>
                                         <argument>-o</argument>
                                         <argument>type=registry</argument>
                                         <argument>.</argument>
@@ -358,7 +358,7 @@
                                         <argument>build</argument>
                                         <argument>-t</argument>
                                         <argument>${docker.repo}/${tb-cassandra.docker.name}:${project.version}</argument>
-                                        <argument>--platform=linux/amd64,linux/arm64</argument>
+                                        <argument>--platform=linux/amd64</argument>
                                         <argument>-o</argument>
                                         <argument>type=registry</argument>
                                         <argument>.</argument>
