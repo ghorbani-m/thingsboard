@@ -11,6 +11,10 @@ on:
       - multi-arch  # Add current branch
   workflow_dispatch:  # Allow manual workflow runs
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -53,7 +57,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       # Step 8: Build and push multi-architecture Docker image
       - name: Build and push
