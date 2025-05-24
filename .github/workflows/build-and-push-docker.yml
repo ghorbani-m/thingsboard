@@ -64,7 +64,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./docker/tb-postgres.dockerfile
+          file: ./msa/tb/docker-postgres/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
