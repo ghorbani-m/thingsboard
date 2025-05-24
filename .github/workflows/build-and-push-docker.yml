@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - develop  # Trigger on push to the `main` branch
+      - multi-arch  # Add current branch
   pull_request:
     branches:
       - develop  # Trigger on pull requests to the `main` branch
+      - multi-arch  # Add current branch
   workflow_dispatch:  # Allow manual workflow runs
 
 jobs:
