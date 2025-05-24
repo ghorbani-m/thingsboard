@@ -3,7 +3,8 @@ name: Build, Create Docker Image, and Push to GitHub Container Registry
 on:
   push:
     branches:
-      - develop  # Trigger on push to the `main` branch
+      - develop  # Trigger on push to the `develop` branch
+      - branding
   pull_request:
     branches:
       - develop
