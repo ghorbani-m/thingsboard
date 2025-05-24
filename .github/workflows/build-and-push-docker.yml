@@ -6,7 +6,9 @@ on:
       - develop  # Trigger on push to the `main` branch
   pull_request:
     branches:
-      - develop  # Trigger on pull requests to the `main` branch
+      - develop
+      - branding  
+  
   workflow_dispatch:  # Allow manual workflow runs
 
 jobs:
